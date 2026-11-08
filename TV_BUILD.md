@@ -24,20 +24,30 @@ Android NDK、vcpkg、Docker，WSL 也被策略禁用 —— **本机出不了 A
 
 ---
 
-## 2. 编译（GitHub Actions）
+## 2. 编译（GitHub Actions · 已自动跑通）
 
-前置：本补丁已应用到 fork 仓库，且 fork 的 Actions 已启用（fork 默认禁用，
-第一次进 Actions 页会看到黄色提示条，点 `I understand my workflows, go ahead and enable them`）。
+实际仓库：<https://github.com/zfzong/rustdesk-tv-android7>，
+分支 `tv-android7`（已设为默认分支），提交 `e130426`。
+Fork 的 Actions 已通过 API 开启并把工作流权限设为 write，无需手动点黄色提示条。
+首次运行：[run 42449364642](https://github.com/zfzong/rustdesk-tv-android7/actions/runs/42449364642)。
 
-1. 仓库 → **Actions** → 左侧 `RustDesk TV (Android 7.1)` → **Run workflow**
-2. 参数：
-   - `abi`：`armv7`（安卓 7.1 老盒子默认，32 位）/ `arm64` / `both`
-   - `tv_mode`：`true` = TV 横屏遥控器界面；`false` = 官方手机版界面（同一套源码对照用）
-3. 等待。首次构建要编译 `cargo-expand`、`flutter_rust_bridge_codegen`、
-   vcpkg 的 FFmpeg/Opus 等依赖、Rust NDK 核心库和 Flutter，
-   **通常在 2–4 小时之间**，期间 Actions 页面长时间没有日志输出是正常的。
-4. 完成后在运行结果页底部 **Artifacts** 下载 `rustdesk-tv-apk-armv7`
-   （或 arm64），解压得到 `rustdesk-tv-armv7-android7.apk`。
+重新构建时：仓库 → **Actions** → 左侧 `RustDesk TV (Android 7.1)` → **Run workflow**
+（分支选 `tv-android7`）。
+
+参数：
+
+- `abi`：`armv7`（安卓 7.1 老盒子默认，32 位）/ `arm64` / `both`
+- `tv_mode`：`true` = TV 横屏遥控器界面；`false` = 官方手机版界面（同一套源码对照用）
+
+首次构建要编译 `cargo-expand`、`flutter_rust_bridge_codegen`、
+vcpkg 的 FFmpeg/Opus 等依赖、Rust NDK 核心库和 Flutter，
+**通常在 2–4 小时之间**，期间 Actions 页面长时间没有日志输出是正常的。
+
+完成后在运行结果页底部 **Artifacts** 下载 `rustdesk-tv-apk-armv7`
+（或 arm64），解压得到 `rustdesk-tv-armv7-android7.apk`。
+
+> 只推 `tv-android7` 分支而保留官方 `master`，是为了避开官方 `ci.yml` /
+> `flutter-ci.yml` 的 `push: branches: [master]` 触发，不会连带跑全平台构建。
 
 关键实现：
 
