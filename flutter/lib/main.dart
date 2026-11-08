@@ -29,6 +29,8 @@ import 'mobile/pages/home_page.dart';
 import 'mobile/pages/server_page.dart';
 import 'mobile/widgets/deploy_dialog.dart';
 import 'models/platform_model.dart';
+import 'tv/tv_entry.dart';
+import 'tv/tv_home_page.dart';
 
 /// Basic window and launch properties.
 int? kWindowId;
@@ -174,6 +176,14 @@ void runMainApp(bool startService) async {
 }
 
 void runMobileApp() async {
+  if (kTvMode) {
+    // TV 版：锁定横屏 + 沉浸式全屏（设计稿 A 板：默认横屏 / Overscan 安全区）
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  }
   await initEnv(kAppTypeMain);
   checkUpdate();
   if (isAndroid) androidChannelInit();
@@ -505,7 +515,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
               ? const DesktopTabPage()
               : isWeb
                   ? WebHomePage()
-                  : HomePage(),
+                  : (kTvMode ? const TvHomePage() : HomePage()),
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,

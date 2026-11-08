@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android TV 启动器横幅：320×180 dp，纯矢量，不引入二进制资源 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="180dp"
+    android:viewportWidth="320"
+    android:viewportHeight="180">
+    <!-- 背景 #0B0C0F -->
+    <path android:fillColor="#FF0B0C0F" android:pathData="M0,0h320v180h-320z" />
+    <!-- 左侧青蓝竖条 焦点色 #16C8FF -->
+    <path android:fillColor="#FF16C8FF" android:pathData="M40,38h10v104h-10z" />
+    <!-- 屏幕外框 -->
+    <path android:fillColor="#FF22242B" android:pathData="M64,46h208v88h-208z" />
+    <path android:fillColor="#FF0C1220" android:pathData="M70,52h196v76h-196z" />
+    <!-- 远程光标箭头 -->
+    <path android:fillColor="#FF16C8FF" android:pathData="M132,72v40l11,-10l8,17l7,-3l-8,-17l15,-1z" />
+    <!-- 底部分隔线 -->
+    <path android:fillColor="#FF2D2D33" android:pathData="M40,152h240v2h-240z" />
+    <!-- 在线指示点 -->
+    <path android:fillColor="#FF11D080" android:pathData="M282,150a6,6 0 1,0 12,0a6,6 0 1,0 -12,0z" />
+</vector>
