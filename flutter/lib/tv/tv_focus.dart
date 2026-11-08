@@ -33,7 +33,10 @@ class TvDpad extends StatelessWidget {
   final VoidCallback? onMenu;
 
   static String? digitOf(LogicalKeyboardKey k) {
-    const digits = <LogicalKeyboardKey, String>{
+    // LogicalKeyboardKey 的 == 是自定义实现（比较 keyId），没有 primitive
+    // equality，不能作为 const map 的 key；否则 Dart 在 kernel_snapshot 阶段
+    // 报 "Constant evaluation error"。这里必须是运行期 final。
+    final digits = <LogicalKeyboardKey, String>{
       LogicalKeyboardKey.digit0: '0',
       LogicalKeyboardKey.digit1: '1',
       LogicalKeyboardKey.digit2: '2',
